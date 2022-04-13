@@ -1,0 +1,35 @@
+version: "3.8"
+services: 
+  server:
+      build:
+          dockerfile: Dockerfile
+          context: .
+      environment:
+        - DB_HOST=database
+        - DB_USER=postgres
+        - DB_PASSWORD=123qwe123
+        - DB_NAME=waydb
+      depends_on:
+          - database
+      ports:
+          - "10000:10000"
+      networks:
+          - default
+          - backend
+  database:
+      image: postgres
+      restart: always
+      environment:
+        POSTGRES_DB: waydb
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: 123qwe123    
+      ports:
+          - "9002:5432"
+      volumes: 
+          - data:/var/lib/postgresql/data
+      networks:
+          - backend
+volumes:
+  data:
+networks:
+  backend:
