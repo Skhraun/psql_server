@@ -4,4 +4,4 @@ stages:
 docker_build:
   stage: build
   script:
-    - docker-compose -f docker-compose.yml build
+    - sudo docker-compose -f docker-compose.yml build
